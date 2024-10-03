@@ -1,49 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fiche de l'artiste{% endblock %}
+{% block title %}Fiche artiste{% endblock %}
 
 {% block body %}
-<h1 class="pt-2 text-center"><h1>
+<h1 class="pt-2 text-center">Fiche des artistes</h1>
 <hr>
-<div class="row pt-2">
-{% set nbAlbums = leArtiste.albums|length %}
- <div class="col-sm-12.col-md-12.col-lg-4 col-wl-3">
- <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-  <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{leArtiste.nom}}</font></font></div>
-  <div class="card-body">
-  
-    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></h4>
-    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelques exemples de texte rapides pour développer le titre de la carte et constituer l'essentiel du contenu de la carte.</font></font></p>
-    <a href="" class="badge badge-succes">{{nbAlbums}}{% if nbAlbums> 1 % }albums{% else %} album{% endif %}</a>
+<div class="row pt-2"> 
+            {% set nbalbums = leArtiste.albums|length %}
+            <div>
+                <h3 class="card-header"> {{leArtiste.nom}}</h3>
+      <div class="row">
+                    <div class="col-3 d-flex align-items-center mx-auto"> 
+                      <img class="avatar mx-auto d-block"src="{{leArtiste.image}}" alt="">
+                      </div>
+        <div class="col">
+          <div class="card-body">
+                    <h5 class="card-title">
+                    <a href="" class="badge.badge-success"</a> {{nbalbums}} {% if nbalbums > 1 %} albums {% else %} album {% endif %}</a>  
+                    </h5> 
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{leArtiste.description|raw}}...</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{% if leArtiste.type == 0 %} Artiste  {% else %} Groupe {% endif %}
+                    </li>
+                    <li class="list-group-item"><a href="{{leArtiste.site}}">son site web</a></li>
+                </ul> 
+          </div>  
+        </div>  
+      </div>
+</div>
+<table class="table table-hover mx-auto">
+  <thead>
+    <tr>
+      <th scope="col-3">photo</th>
+      <th scope="col-4">Nom</th>
+      <th scope="col-1">Date</th>
+      <th scope="col-3">Style</th>
+       <th scope="col-1">Morceau</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for leAlbum in leArtiste.albums %}
+            <tr>
+            <td><img class="miniature" src="{{leAlbum.image}}" alt=""></td>
+            <td scope="row"> <a href="{{path('ficheAlbum', {'id': leAlbum.id})}}"></a> {{leAlbum.nom}}</td>
+            <td>{{leAlbum.date}}</td>
+            <td></td>
+            <td>{{leAlbum.morceaux|length}}</td>
+            </tr>
+  {% endfor %}
     
-  </div>
-</div>
-<div class="card bg-secondary mb-3" style="max-width: 20rem;">
-  <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">En-tête</font></font></div>
-  <div class="card-body">
-    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Titre de la carte secondaire</font></font></h4>
-    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelques exemples de texte rapides pour développer le titre de la carte et constituer l'essentiel du contenu de la carte.</font></font></p>
-  </div>
-</div>
-<div class="card text-white bg-success mb-3" style="max-width: 20rem;">
-  <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">En-tête</font></font></div>
-  <div class="card-body">
-    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Titre de la carte de réussite</font></font></h4>
-    <p class="card-text">{{leArtiste.description}}</p>
-  </div>
-</div>
-<img class="mex-auto d-block " style="height: 200px; width:100%;,display: block;" src="{{leArtiste.image}} " alt="Card image">
-<div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
-  <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">En-tête</font></font></div>
-  <div class="card-body">
-    <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Titre de la carte de danger</font></font></h4>
-    <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Quelques exemples de texte rapides pour développer le titre de la carte et constituer l'essentiel du contenu de la carte.</font></font></p>
-  <li class="list-group-item">{% if leArtiste.type == 0 %} Artiste solo</li>
-    <li class="list-group-item"> <a href="{{ leArtiste.site}}"son site web </a></li>
-
-  </div>
-</div>
- </div>
- {% endfor %}
-<div>
+  </tbody>
+</table>
 {% endblock %}
