@@ -25,8 +25,6 @@
                             <li>
                                 <h6 class="dropdown-header">Dropdown header</h6>
                                 <a class="dropdown-item" href="{{ path('app_artistes') }}">Liste des artistes</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
                             </li>
                         </ul>
                     </li>
@@ -34,8 +32,8 @@
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des albums</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <h6 class="dropdown-header">Liste des albums</h6>
-                                <a class="dropdown-item" href="#">Liste Artistes</a>
+                                <h6 class="dropdown-header">Gestion Artiste</h6>
+                                <a class="dropdown-item" href="{{path('admin_artistes')}}">Gestion Artiste</a>
                             </li>
                         </ul>
                     </li>
@@ -44,6 +42,13 @@
         </div>
     </nav>
     <div class="container">
+    {# affiche tous les messages flash#}
+    {% for label, messages in app,flashes  %}
+        <div class="alert alert-{{label}} mt-5">
+        {% for message in messages %}
+            <p> {{message}} </p>
+        {% endfor %}
+    </div>
         {% block body %}{% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
