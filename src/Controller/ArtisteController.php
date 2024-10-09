@@ -30,22 +30,49 @@ class ArtisteController extends AbstractController
         ]);
     }
     #[Route('admin/artiste/ajout', name:'admin_artiste_ajout', methods:['GET','POST'])]
-    public function ajoutArtiste(Request $request, EntityManagerInterface $manager)
+
+    public function ajoutModifArtiste(Artiste $artiste=null,Request $request, EntityManagerInterface $manager)
     {
-        $artiste=new Artiste();
-        dump($artiste);
+        if($artiste==null){
+             $artiste=new Artiste();
+             $mode="ajouté";
+        }else{
+            $mode="modifié";
+
+        }
+       
         $form=$this->createForm(ArtisteType::class, $artiste);
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid())
         {
-            dd($artiste);
+        
             $manager->persist($artiste);
             $manager->flush();
             $this->addFlash("success", "L'artiste a bien été ajouté");
             return $this->redirectToRoute('admin_artistes');
         }
-        return $this->render('admin/artiste/formAjoutArtiste.html.twig', [
+        return $this->render('admin/artiste/formAjoutModifArtiste.html.twig', [
             'formArtiste' => $form->createView()
+        ]);
+    }
+    #[Route('admin/artiste/modif/{id}', name:'admin_artiste_modif', methods:['GET','POST'])]
+    public function modifArtiste(Artiste $artiste,Request $request, EntityManagerInterface $manager)
+    {
+        $form=$this->createForm(ArtisteType::class, $artiste);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+          
+            $manager->persist($artiste);
+            $manager->flush();
+            $this->addFlash("success", "L'artiste a bien été modifié");
+            return $this->redirectToRoute('admin_artistes');
+        }
+        return $this->render('admin/artiste/formModifArtiste.html.twig', [
+            'formArtiste' => $form->createView()
+            
         ]);
     }
 }
