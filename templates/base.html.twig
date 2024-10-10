@@ -43,12 +43,13 @@
     </nav>
     <div class="container">
     {# affiche tous les messages flash#}
-    {% for label, messages in app,flashes  %}
+    {% for label, messages in app.flashes  %}
         <div class="alert alert-{{label}} mt-5">
         {% for message in messages %}
             <p> {{message}} </p>
         {% endfor %}
     </div>
+    {% endfor %}
         {% block body %}{% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
