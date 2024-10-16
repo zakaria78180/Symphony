@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Artiste;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Artiste>
@@ -44,7 +45,7 @@ public function listeArtistesCompletePaginee():Query
         ->select('art','a')
         ->leftJoin('art.albums','a')
         ->orderBy('art.nom', 'ASC')
-        ->getQuery()
+    ->getQuery()
     ;
 }
 

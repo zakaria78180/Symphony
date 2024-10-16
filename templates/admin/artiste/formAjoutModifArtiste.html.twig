@@ -1,37 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ajout artiste{% endblock %}
+{% block title %}Ajout Artiste{% endblock %}
 
 {% block body %}
+<h1 class="pt-2 text-center">
+  {% if app.request.attributes.get('_route') == "admin_artiste_ajout" %}
+    Ajout
+  {% else %}
+    Modification 
+  {% endif %}
+  d'un artiste
+</h1>
 
-<h1 class="pt-2 text-center"> 
-{% if (app.request.attributes.get('_route')=="admin_artiste_ajout") %}
-  Ajout
-{% else %}
- Modification 
-{% endif %}
-d'un artiste</h1>
+{{ form_start(formArtiste, { 'attr': {'novalidate': 'novalidate'} }) }}
 
-{{form_start(formArtiste)}}
-
-{{form_row(formArtiste.nom)}}
-{{form_row(formArtiste.description)}}
-<div class="row">
-  <div class="col">{{form_row(formArtiste.site)}}</div>
-  <div class="col">{{form_row(formArtiste.type)}}</div>
+<div class="form-group">
+  {{ form_row(formArtiste.nom, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group">
+  {{ form_row(formArtiste.description, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="row mb-3">
+  <div class="col">{{ form_row(formArtiste.site, {'attr': {'class': 'form-control'}}) }}</div>
+  <div class="col">{{ form_row(formArtiste.type, {'attr': {'class': 'form-control'}}) }}</div>
+</div>
+<div class="form-group">
+  {{ form_row(formArtiste.image, {'attr': {'class': 'form-control'}}) }}
 </div>
 
-{{form_row(formArtiste.image)}}
 <div class="row">
-  <div class="col"><a href="{{path('admin_artistes')}}" class="btn btn-warning btn-block">Annuler</a></div>
-  <div class="col"><input type="submit", class="btn btn-success" value=
-  {% if (app.request.attributes.get('_route')=="admin_artiste_ajout") %}
-  "Ajouter l'artiste"
-{% else %}
- "Modifier "
-{% endif %}></div>
+  <div class="col">
+    <a href="{{ path('admin_artistes') }}" class="btn btn-warning btn-block">Annuler</a>
+  </div>
+  <div class="col">
+    <input type="submit" class="btn btn-success btn-block" value="{% if app.request.attributes.get('_route') == 'admin_artiste_ajout' %}Ajouter l'artiste{% else %}Modifier{% endif %}">
+  </div>
 </div>
 
+{{ form_end(formArtiste) }}
 
-{{form_end(formArtiste)}}
 {% endblock %}

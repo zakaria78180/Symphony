@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Bienvenue!{% endblock %}</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/cyborg/bootstrap.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {% block stylesheets %} {% endblock %}
@@ -10,30 +10,35 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="{{ path('app_accueil') }}">Mon Site</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil</a>
+                        <a class="nav-link" href="{{ path('app_accueil') }}">Accueil</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des Artistes</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <h6 class="dropdown-header">Dropdown header</h6>
-                                <a class="dropdown-item" href="{{ path('app_artistes') }}">Liste des artistes</a>
+                                <h6 class="dropdown-header">Artistes</h6> 
+                                <a class="dropdown-item" href="{{ path('admin_artistes') }}">Administration des Artistes</a>
+                                <a class="dropdown-item" href="{{ path('artistes') }}">Liste des Artistes</a>
+                                <a class="dropdown-item" href="{{ path('admin_styles') }}">Gestion des styles</a>
+
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des albums</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des Albums</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <h6 class="dropdown-header">Gestion Artiste</h6>
-                                <a class="dropdown-item" href="{{path('admin_artistes')}}">Gestion Artiste</a>
+                                <h6 class="dropdown-header">Albums</h6>
+                                <a class="dropdown-item" href="{{ path('app_albums') }}">Liste des Albums</a>
+                                <a class="dropdown-item" href="{{ path('fiche_album', {'id': 1}) }}">Détails de l'Album</a>
+                                {# Replace '1' with the dynamic album ID as needed #}
                             </li>
                         </ul>
                     </li>
@@ -42,14 +47,14 @@
         </div>
     </nav>
     <div class="container">
-    {# affiche tous les messages flash#}
-    {% for label, messages in app.flashes  %}
-        <div class="alert alert-{{label}} mt-5">
-        {% for message in messages %}
-            <p> {{message}} </p>
+        {# Affiche tous les messages flash #}
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }} mt-5">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
         {% endfor %}
-    </div>
-    {% endfor %}
         {% block body %}{% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

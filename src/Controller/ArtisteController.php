@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArtisteController extends AbstractController
 {
-    #[Route('/artistes', name: 'artistes', methods: 'GET')]
+    #[Route('/artistes', name: 'artistes', methods: ['GET'])]
     public function listeArtistes(ArtisteRepository $repo): Response
     {
         $artistes = $repo->listeArtistesComplete();
@@ -20,8 +20,8 @@ class ArtisteController extends AbstractController
         ]);
     }
 
-    #[Route("/artiste/{id}", name: 'ficheArtiste', methods: 'GET')]
-    public function ficheArtistes(Artiste $artiste): Response
+    #[Route("/artiste/{id}", name: 'fiche_artiste', methods: ['GET'])]
+    public function ficheArtiste(Artiste $artiste): Response
     {
         return $this->render('artiste/ficheArtiste.html.twig', [
             'leArtiste' => $artiste,
